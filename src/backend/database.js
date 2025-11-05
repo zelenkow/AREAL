@@ -7,7 +7,7 @@ const sql = `
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         full_name VARCHAR(100) NOT NULL,
         birth_date VARCHAR(10) NOT NULL,
-        passport_series_number VARCHAR(20) NOT NULL UNIQUE,
+        pass_data VARCHAR(20) NOT NULL UNIQUE,
         phone_number VARCHAR(20) NOT NULL,
         address TEXT NOT NULL,
         department VARCHAR(50) NOT NULL,

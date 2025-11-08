@@ -10,6 +10,34 @@
     <div class="container">
         <h1>Система учета сотрудников</h1>
         
+        <div class="control-panel">
+            <div class="search-section">
+                <input type="text" id="searchInput" placeholder="Поиск по ФИО...">
+                <button id="searchBtn" class="btn-primary">Найти</button>
+                <button id="resetBtn" class="btn-secondary">Сбросить</button>
+            </div>
+    
+            <div class="filters-section">
+                <select id="departmentFilter">
+                    <option value="">Все отделы</option>
+                    <option value="IT">Отдел IT</option>
+                    <option value="HR">HR</option>
+                    <option value="Финансы">Финансы</option>
+                </select>
+        
+                <select id="positionFilter">
+                    <option value="">Все должности</option>
+                    <option value="Разработчик">Разработчик</option>
+                    <option value="Менеджер">Менеджер</option>
+                    <option value="Аналитик">Аналитик</option>
+                </select>
+            </div>
+
+            <div class="actions-section">
+                <button id="addEmployeeBtn" class="btn-success">+ Добавить сотрудника</button>
+            </div>
+        </div>
+
         <table>
             <thead>
                 <tr>
@@ -30,6 +58,64 @@
             <tbody id="employeesTableBody">
             </tbody>
         </table>
+    </div>
+
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <h2>Добавить сотрудника</h2>
+    
+            <form id="addForm">
+                <div class="form-group">
+                    <label for="addFullName">ФИО:</label>
+                    <input type="text" id="addFullName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="addBirthDate">Дата рождения:</label>
+                    <input type="text" id="addBirthDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="addPassData">Серия/номер паспорта:</label>
+                    <input type="text" id="addPassData" required>
+                </div> 
+            
+                <div class="form-group">
+                    <label for="addContactInf">Контактная информация:</label>
+                    <input type="text" id="addContactInf" required>
+                </div> 
+
+                <div class="form-group">
+                    <label for="addAdress">Адрес проживания:</label>
+                    <input type="text" id="addAdress" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="addDepartment">Отдел:</label>
+                    <input type="text" id="addDepartment" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="addPosition">Должность:</label>
+                    <input type="text" id="addPosition" required>
+                </div>
+        
+                 <div class="form-group">
+                    <label for="addSalary">Размер зарплаты:</label>
+                    <input type="text" id="addSalary" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="addHireDate">Дата принятия на работу:</label>
+                    <input type="text" id="addHireDate" required>
+                </div>
+        
+                <div class="form-actions">
+                    <button type="button" id="cancelAdd">Отмена</button>
+                    <button type="submit">Добавить</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <div id="editModal" class="modal">
@@ -55,13 +141,13 @@
                 </div> 
                 
                 <div class="form-group">
-                    <label for="ContactInf">Контактная информация:</label>
-                    <input type="text" id="ContactInf" required>
+                    <label for="editContactInf">Контактная информация:</label>
+                    <input type="text" id="editContactInf" required>
                 </div> 
 
                 <div class="form-group">
-                    <label for="Adress">Адрес проживания:</label>
-                    <input type="text" id="Adress" required>
+                    <label for="editAdress">Адрес проживания:</label>
+                    <input type="text" id="editAdress" required>
                 </div>
 
                 <div class="form-group">
@@ -80,8 +166,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="HireDate">Дата принятия на работу:</label>
-                    <input type="text" id="HireDate" required>
+                    <label for="editHireDate">Дата принятия на работу:</label>
+                    <input type="text" id="editHireDate" required>
                 </div>
             
                 <div class="form-actions">

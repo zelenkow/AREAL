@@ -1,133 +1,226 @@
-/* === ОСНОВНЫЕ СТИЛИ СТРАНИЦЫ === */
-
-/* Стили для всего тела страницы */
 body {
-    font-family: Arial;                    /* Основной шрифт страницы */
-    padding: 20px;                        /* Отступы от краев страницы */
+    font-family: Arial;               
+    padding: 20px;                      
 }
 
-/* Стили для всех таблиц на странице */
 table {
-    width: 100%;                          /* Таблица занимает всю ширину */
-    border-collapse: collapse;            /* Границы ячеек объединяются в одну линию */
+    width: 100%;       
+    border-collapse: collapse;
 }
 
-/* Стили для ячеек таблицы (заголовков и данных) */
 th, td {
-    border: 1px solid #ddd;             /* Серая граница толщиной 1 пиксель */
-    padding: 8px;                         /* Внутренние отступы в ячейках */
+    border: 1px solid #ddd;
+    padding: 8px;                    
 }
 
-/* Стили только для заголовков таблицы */
 th {
-    background-color: #f2f2f2;          /* Светло-серый фон для заголовков */
+    background-color: #f2f2f2;
 }
 
-/* Стили для главного заголовка страницы */
 h1 {
-    text-align: center;                   /* Выравнивание текста по центру */
-    margin-bottom: 30px;                  /* Отступ снизу 30 пикселей */
+    text-align: center;                 
+    margin-bottom: 30px;            
 }
 
-/* === СТИЛИ МОДАЛЬНОГО ОКНА === */
-
-/* Основной контейнер модального окна */
 .modal {
-    display: none;                        /* По умолчанию скрыто */
-    position: fixed;                      /* Фиксированное позиционирование */
-    z-index: 1000;                        /* Поверх всех элементов */
-    left: 0;                              /* Прижато к левому краю */
-    top: 0;                               /* Прижато к верхнему краю */
-    width: 100%;                          /* На всю ширину экрана */
-    height: 100%;                         /* На всю высоту экрана */
+    display: none;                   
+    position: fixed;                   
+    z-index: 1000;                     
+    left: 0;                         
+    top: 0;                        
+    width: 100%;                    
+    height: 100%;                      
 }
 
-/* Контейнер содержимого модального окна */
+
 .modal-content {
-    background-color: white;            /* Белый фон содержимого */
-    margin: 2% auto;                      /* Отступ сверху 2% и центрирование */
-    padding: 0;                           /* Без внутренних отступов */
-    max-width: 600px;                     /* Максимальная ширина 600px */
-    max-height: 90vh;                     /* Максимальная высота 90% от высоты экрана */
-    overflow-y: auto;                     /* Вертикальная прокрутка при необходимости */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Тень вокруг окна */
+    background-color: white;     
+    margin: 2% auto;                 
+    padding: 0;                        
+    max-width: 600px;           
+    max-height: 90vh;                 
+    overflow-y: auto;              
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* Заголовок модального окна */
 .modal-content h2 {
-    background: #8179ee;               /* Цвет загаловка */
-    color: white;                      /* Цвет текста */
-    padding: 20px;                       /* Внутренние отступы */
-    margin: 0;                           /* Без внешних отступов */
-    font-size: 1.5rem;                   /* Размер шрифта 1.5rem */
-    position: sticky;                    /* Липкий заголовок при прокрутке */
-    top: 0;                              /* Прилипает к верху */
-    z-index: 1;                          /* Поверх содержимого */
+    background: #8179ee;          
+    padding: 20px;                    
+    margin: 0;                       
+    font-size: 1.5rem;               
+    position: sticky;                
+    top: 0;                         
+    z-index: 1;                       
 }
 
-/* === СТИЛИ ФОРМЫ РЕДАКТИРОВАНИЯ === */
-
-/* Контейнер формы */
-#editForm {
-    padding: 30px;                       /* Внутренние отступы формы */
+#editForm, #addForm {
+    padding: 30px;
 }
 
-/* Группа полей формы */
 .form-group {
-    margin-bottom: 20px;                 /* Отступ между группами полей */
+    margin-bottom: 20px;
 }
 
-/* Поле ввода */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
 .form-group input {
-    width: 100%;                         /* Ширина на весь контейнер */
-    padding: 12px;                       /* Внутренние отступы */
-    border: 2px solid #e1e5e9;         /* Серая граница толщиной 2px */
-    border-radius: 6px;                  /* Скругленные углы */
-    font-size: 14px;                     /* Размер шрифта */
-    transition: border-color 0.3s ease;  /* Плавное изменение цвета границы */
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e1e5e9;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
 }
 
-/* Стиль поля ввода при фокусе */
 .form-group input:focus {
-    outline: none;                       /* Убираем стандартный контур */
-    border-color: #667eea;             /* Синяя граница при фокусе */
+    outline: none;
+    border-color: #667eea;
 }
 
-/* === СТИЛИ КНОПОК ФОРМЫ === */
-
-/* Контейнер для кнопок действий */
 .form-actions {
-    display: flex;                      /* Flex-контейнер */
-    justify-content: flex-end;          /* Выравнивание кнопок вправо */
-    gap: 15px;                          /* Расстояние между кнопками */
-    margin-top: 30px;                   /* Отступ сверху */
-    padding-top: 20px;                  /* Внутренний отступ сверху */
-    border-top: 1px solid #e1e5e9;    /* Верхняя граница-разделитель */
-    position: sticky;                   /* Липкие кнопки при прокрутке */
-    bottom: 0;                          /* Прилипают к низу */
-    background: white;                /* Белый фон чтобы перекрывать контент */
-    z-index: 1;                         /* Поверх содержимого */
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e1e5e9;
+    position: sticky;
+    background: white;
+    z-index: 1;                         
 }
 
-/* Общие стили для всех кнопок в форме */
 .form-actions button {
-    padding: 12px 24px;                 /* Внутренние отступы кнопок */
-    border: none;                       /* Без границы */
-    border-radius: 6px;                 /* Скругленные углы */
-    cursor: pointer;                    /* Указатель при наведении */
-    font-size: 14px;                    /* Размер шрифта */
-    font-weight: 500;                   /* Полужирное начертание */
-    transition: all 0.3s ease;          /* Плавные переходы для всех свойств */
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-/* Стили для кнопки "Отмена" */
-#cancelEdit {
-    background-color: #46494b;          /* Серый фон */
-    color: white;                       /* Белый текст */
+#cancelEdit, #cancelAdd {
+    background-color: #46494b;
+    color: white;
 }
 
-/* Стили для кнопки отправки формы (Сохранить) */
 .form-actions button[type="submit"] {
-    background: #1809e6;                /* Цвет кнопки */
-    color: white;                       /* Белый текст */
+    background: #1809e6;
+    color: white;                     
+}
+
+.control-panel {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.search-section {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.filters-section {
+    display: flex;
+    gap: 10px;
+}
+
+.actions-section {
+    margin-left: auto;
+}
+
+#searchInput {
+    padding: 8px 12px;
+    border: 2px solid #e1e5e9;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 200px;
+}
+
+select {
+    padding: 8px 12px;
+    border: 2px solid #e1e5e9;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-edit {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-edit:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-fire {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-fire:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    opacity: 0.6;
 }

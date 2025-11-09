@@ -3,6 +3,75 @@ const API_URL = 'http://localhost:3000';
 let employees = [];
 let currentEditingId = null;
 
+function applyPassportMask(input) {
+
+    let value = input.value.replace(/\D/g, '');
+    
+    if (value.length > 0) {
+        value = value.substring(0, 10);
+        
+        let formatted = '';
+        if (value.length > 0) {
+            formatted += value.substring(0, 2);
+        }
+        if (value.length > 2) {
+            formatted += ' ' + value.substring(2, 4);
+        }
+        if (value.length > 4) {
+            formatted += ' ' + value.substring(4, 10);
+        }
+        
+        input.value = formatted;
+    }
+}
+
+function applyPhoneMask(input) {
+    let value = input.value;
+    let hasPlus = value.startsWith('+');
+    
+    let digits = value.replace(/\D/g, '');
+    
+    if (hasPlus && digits.length > 0) {
+        digits = '+' + digits;
+    }
+    
+    let formatted = '';
+    let i = 0;
+    
+    if (digits.startsWith('+')) {
+        formatted += '+';
+        i = 1;
+        if (digits.length > i) {
+            formatted += digits.substring(i, i + 1);
+            i += 1;
+        }
+    } else if (digits.length > 0) {
+        formatted += '+7';
+        if (digits.length > 0) {
+            formatted += digits.substring(0, 1);
+            i = 1;
+        }
+    }
+    
+    if (digits.length > i) {
+        formatted += ' (' + digits.substring(i, i + 3);
+        i += 3;
+    }
+    if (digits.length > i) {
+        formatted += ') ' + digits.substring(i, i + 3);
+        i += 3;
+    }
+    if (digits.length > i) {
+        formatted += '-' + digits.substring(i, i + 2);
+        i += 2;
+    }
+    if (digits.length > i) {
+        formatted += '-' + digits.substring(i, i + 2);
+    }
+    
+    input.value = formatted;
+}
+
 function openEditModal(id) {
     const employee = employees.find(emp => emp.id === id);
 
@@ -160,5 +229,34 @@ document.getElementById('cancelEdit').addEventListener('click', closeEditModal);
 document.getElementById('addEmployeeBtn').addEventListener('click', openAddModal);
 
 document.addEventListener('DOMContentLoaded', function() {
+    const addPassDataInput = document.getElementById('addPassData');
+    const editPassDataInput = document.getElementById('editPassData');
+    const addContactInput = document.getElementById('addContactInf');
+    const editContactInput = document.getElementById('editContactInf');
+    
+    if (addPassDataInput) {
+        addPassDataInput.addEventListener('input', function() {
+            applyPassportMask(this);
+        });
+    }
+    
+    if (editPassDataInput) {
+        editPassDataInput.addEventListener('input', function() {
+            applyPassportMask(this);
+        });
+    }
+
+    if (addContactInput) {
+        addContactInput.addEventListener('input', function() {
+            applyPhoneMask(this);
+        });
+    }
+    
+    if (editContactInput) {
+        editContactInput.addEventListener('input', function() {
+            applyPhoneMask(this);
+        });
+    }
+    
     loadEmployees();
 });

@@ -72,6 +72,72 @@ function applyPhoneMask(input) {
     input.value = formatted;
 }
 
+function filterEmployees() {
+    const selectedDepartment = document.getElementById('departmentFilter').value;
+    const selectedPosition = document.getElementById('positionFilter').value;
+    
+    if (selectedDepartment === '' && selectedPosition === '') {
+        displayEmployees(employees);
+        return;
+    }
+    
+    const filteredEmployees = employees.filter(employee => {
+        const departmentMatch = selectedDepartment === '' || employee.department === selectedDepartment;
+
+        const positionMatch = selectedPosition === '' || employee.position === selectedPosition;
+        
+        return departmentMatch && positionMatch;
+    });
+    
+    displayEmployees(filteredEmployees);
+}
+
+function updateDepartmentFilter() {
+    const departmentFilter = document.getElementById('departmentFilter');
+    
+    const currentSelection = departmentFilter.value;
+    
+    departmentFilter.innerHTML = '<option value="">Все отделы</option>';
+    
+    const uniqueDepartments = [...new Set(employees.map(employee => employee.department))];
+    
+    uniqueDepartments.sort();
+    
+    uniqueDepartments.forEach(department => {
+        const option = document.createElement('option');
+        option.value = department;
+        option.textContent = department;
+        departmentFilter.appendChild(option);
+    });
+    
+    if (currentSelection && uniqueDepartments.includes(currentSelection)) {
+        departmentFilter.value = currentSelection;
+    }
+}
+
+function updatePositionFilter() {
+    const positionFilter = document.getElementById('positionFilter');
+    
+    const currentSelection = positionFilter.value;
+    
+    positionFilter.innerHTML = '<option value="">Все должности</option>';
+    
+    const uniquePositions = [...new Set(employees.map(employee => employee.position))];
+    
+    uniquePositions.sort();
+    
+    uniquePositions.forEach(position => {
+        const option = document.createElement('option');
+        option.value = position;
+        option.textContent = position;
+        positionFilter.appendChild(option);
+    });
+    
+    if (currentSelection && uniquePositions.includes(currentSelection)) {
+        positionFilter.value = currentSelection;
+    }
+}
+
 function openEditModal(id) {
     const employee = employees.find(emp => emp.id === id);
 
@@ -144,6 +210,8 @@ async function loadEmployees() {
     const response = await fetch(`${API_URL}/employees`);
     employees = await response.json();
     displayEmployees(employees);
+    updateDepartmentFilter();
+    updatePositionFilter();
 }
 
 async function fireEmployee(id) {
@@ -162,7 +230,6 @@ function displayEmployees(employees) {
     employees.forEach(employee => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${employee.id}</td>
             <td>${employee.full_name}</td>
             <td>${employee.birth_date}</td>
             <td>${employee.pass_data}</td>
@@ -186,6 +253,29 @@ function displayEmployees(employees) {
         `;
         tbody.appendChild(row);
     });
+}
+
+function searchEmployees() {
+    const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
+    
+    if (searchText === '') {
+        displayEmployees(employees);
+        return;
+    }
+    
+    const filteredEmployees = employees.filter(employee => {
+        const fullName = employee.full_name.toLowerCase();
+
+        return fullName.includes(searchText);
+    });
+    
+    displayEmployees(filteredEmployees);
+}
+
+function resetSearch() {
+    document.getElementById('searchInput').value = '';
+
+    displayEmployees(employees);
 }
 
 function getEmployeeFormData(prefix) {
@@ -233,6 +323,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const editPassDataInput = document.getElementById('editPassData');
     const addContactInput = document.getElementById('addContactInf');
     const editContactInput = document.getElementById('editContactInf');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const departmentFilter = document.getElementById('departmentFilter');
+    const positionFilter = document.getElementById('positionFilter');
     
     if (addPassDataInput) {
         addPassDataInput.addEventListener('input', function() {
@@ -256,6 +351,30 @@ document.addEventListener('DOMContentLoaded', function() {
         editContactInput.addEventListener('input', function() {
             applyPhoneMask(this);
         });
+    }
+
+    if (searchBtn) {
+        searchBtn.addEventListener('click', searchEmployees);
+    }
+    
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetSearch);
+    }
+    
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchEmployees();
+            }
+        });
+    }
+
+    if (departmentFilter) {
+        departmentFilter.addEventListener('change', filterEmployees);
+    }
+
+    if (positionFilter) {
+        positionFilter.addEventListener('change', filterEmployees);
     }
     
     loadEmployees();
